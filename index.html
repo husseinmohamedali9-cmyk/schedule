@@ -6,92 +6,136 @@
 <title>مواعيدي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg1:#eef6f5;--bg2:#f7f1ea;--blob1:rgba(45,160,150,.28);--blob2:rgba(240,170,110,.30);--blob3:rgba(120,140,230,.22);
---card:rgba(255,255,255,.72);--card-b:rgba(255,255,255,.9);--text:#16302e;--muted:#5d7270;--line:rgba(22,48,46,.12);--input:rgba(255,255,255,.9);
---accent:#0f766e;--accent-t:#fff;--danger:#c0392b;--shadow:0 10px 30px rgba(20,60,55,.10);
+:root{--bg:#f3f5fb;--b1:rgba(99,102,241,.25);--b2:rgba(236,72,153,.18);--b3:rgba(20,184,166,.20);--card:rgba(255,255,255,.78);--edge:rgba(255,255,255,.95);--text:#141a33;--muted:#667089;--line:rgba(20,26,51,.10);--input:rgba(255,255,255,.95);--accent:#6366f1;--danger:#e11d48;--shadow:0 12px 36px rgba(40,50,110,.10);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#0d1719;--bg2:#15131c;--blob1:rgba(30,160,150,.22);--blob2:rgba(230,140,90,.14);--blob3:rgba(100,110,240,.20);--card:rgba(30,40,44,.66);--card-b:rgba(255,255,255,.08);--text:#e6f0ee;--muted:#9fb3b0;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#2dd4bf;--accent-t:#04201c;--danger:#ff7b6b;--shadow:0 10px 30px rgba(0,0,0,.35)}}
-:root[data-theme="dark"]{--bg1:#0d1719;--bg2:#15131c;--blob1:rgba(30,160,150,.22);--blob2:rgba(230,140,90,.14);--blob3:rgba(100,110,240,.20);--card:rgba(30,40,44,.66);--card-b:rgba(255,255,255,.08);--text:#e6f0ee;--muted:#9fb3b0;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#2dd4bf;--accent-t:#04201c;--danger:#ff7b6b;--shadow:0 10px 30px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0e1a;--b1:rgba(99,102,241,.28);--b2:rgba(236,72,153,.14);--b3:rgba(20,184,166,.14);--card:rgba(24,29,52,.70);--edge:rgba(255,255,255,.08);--text:#eef0fb;--muted:#9aa3c4;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#818cf8;--danger:#fb7185;--shadow:0 12px 36px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{--bg:#0b0e1a;--b1:rgba(99,102,241,.28);--b2:rgba(236,72,153,.14);--b3:rgba(20,184,166,.14);--card:rgba(24,29,52,.70);--edge:rgba(255,255,255,.08);--text:#eef0fb;--muted:#9aa3c4;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#818cf8;--danger:#fb7185;--shadow:0 12px 36px rgba(0,0,0,.45)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;color:var(--text);font-family:"Cairo","Segoe UI",Tahoma,Arial,sans-serif;line-height:1.55;
-background:radial-gradient(600px 400px at 90% 0%,var(--blob1),transparent 70%),radial-gradient(700px 500px at 0% 40%,var(--blob2),transparent 70%),radial-gradient(600px 500px at 80% 100%,var(--blob3),transparent 70%),linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed}
-main{max-width:1100px;margin:0 auto;padding:22px 16px 48px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
-h1{margin:0;font-size:1.9rem;font-weight:800;letter-spacing:-.3px}
-.sub{color:var(--muted);font-size:.95rem;margin-top:2px}
-.lock{display:flex;align-items:center;gap:8px;font:inherit;font-weight:700;cursor:pointer;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);box-shadow:var(--shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.2s}
-.lock.on{background:var(--accent);color:var(--accent-t);border-color:var(--accent)}
-.lock:hover{transform:translateY(-1px)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.day{--c:var(--accent);position:relative;background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;transition:transform .2s}
-.day::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--c)}
-.day:hover{transform:translateY(-2px)}
-.day.today{outline:2px solid var(--c);outline-offset:-2px}
-.dh{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
-.dh h2{margin:0;font-size:1.25rem;font-weight:800}
-.badge{font-size:.72rem;font-weight:700;background:var(--c);color:#fff;padding:2px 10px;border-radius:999px}
-.ev{display:flex;align-items:center;gap:8px;background:var(--input);border:1px solid var(--line);border-inline-start:4px solid var(--c);border-radius:12px;padding:9px 11px}
-.ev .t{flex:1;min-width:0}
-.ev b{display:block;font-weight:700;overflow-wrap:anywhere}
-.ev small{color:var(--muted);font-size:.85rem}
-.ic{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--text);width:34px;height:34px;display:grid;place-items:center;transition:.15s}
+body{margin:0;min-height:100vh;color:var(--text);font-family:"Cairo","Segoe UI",Tahoma,Arial,sans-serif;line-height:1.55;background:radial-gradient(700px 480px at 95% -5%,var(--b1),transparent 70%),radial-gradient(600px 500px at -5% 45%,var(--b2),transparent 70%),radial-gradient(700px 500px at 85% 105%,var(--b3),transparent 70%),var(--bg);background-attachment:fixed}
+main{max-width:1120px;margin:0 auto;padding:20px 16px 50px}
+.glass{background:var(--card);border:1px solid var(--edge);box-shadow:var(--shadow);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hero{border-radius:26px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:18px}
+.hero h1{margin:0;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:900;letter-spacing:-.5px}
+.hero h1 span{background:linear-gradient(90deg,#6366f1,#ec4899);-webkit-background-clip:text;background-clip:text;color:transparent}
+.clock{font-size:2.2rem;font-weight:900;font-variant-numeric:tabular-nums;text-align:left;direction:ltr;line-height:1}
+.clock small{display:block;font-size:.8rem;font-weight:600;color:var(--muted);margin-top:4px;direction:rtl;text-align:left}
+.next{grid-column:1/-1;display:flex;align-items:center;gap:10px;background:var(--input);border:1px solid var(--line);border-radius:16px;padding:10px 14px;font-weight:600}
+.pulse{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:p 1.8s infinite;flex:none}
+@keyframes p{70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.bar{grid-column:1/-1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6366f1,#ec4899);border-radius:99px;transition:width .6s}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+.stat{border-radius:99px;padding:6px 14px;font-size:.88rem;font-weight:700}
+.lock{display:flex;align-items:center;gap:8px;font:inherit;font-weight:800;cursor:pointer;padding:10px 20px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--text);transition:.2s}
+.lock.on{background:linear-gradient(90deg,#6366f1,#ec4899);color:#fff;border-color:transparent}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.day{--c:var(--accent);position:relative;border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;transition:transform .25s}
+.day:hover{transform:translateY(-3px)}
+.day::before{content:"";position:absolute;top:-40px;inset-inline-end:-40px;width:120px;height:120px;border-radius:50%;background:var(--c);opacity:.16}
+.day.today{box-shadow:0 0 0 2px var(--c),var(--shadow)}
+.dh{display:flex;align-items:center;justify-content:space-between;position:relative}
+.dh h2{margin:0;font-size:1.3rem;font-weight:900}
+.dh span{font-size:.75rem;font-weight:700;background:var(--c);color:#fff;padding:2px 11px;border-radius:99px}
+.ev{position:relative;display:flex;align-items:center;gap:10px;background:var(--input);border:1px solid var(--line);border-radius:14px;padding:10px;animation:in .3s both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.ev.live{border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.25)}
+.ev.warn{border-color:#f59e0b}
+.cat{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem;background:color-mix(in srgb,var(--c) 18%,transparent);flex:none}
+.t{flex:1;min-width:0}
+.t b{display:block;font-weight:800;overflow-wrap:anywhere}
+.t small{color:var(--muted);font-size:.82rem}
+.tag{font-size:.7rem;font-weight:800;border-radius:99px;padding:1px 8px;margin-inline-start:6px}
+.tag.l{background:#22c55e;color:#fff}.tag.w{background:#f59e0b;color:#fff}
+.ic{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);width:34px;height:34px;display:grid;place-items:center}
 .ic:hover{background:var(--line)}
-.ic.del{color:var(--danger)}
-.empty{color:var(--muted);font-size:.92rem;padding:6px 2px}
-.add{font:inherit;font-weight:700;cursor:pointer;border-radius:12px;border:1.5px dashed var(--c);background:transparent;color:var(--c);padding:9px;transition:.15s;margin-top:auto}
+.empty{color:var(--muted);font-size:.92rem;padding:8px 2px;position:relative}
+.add{font:inherit;font-weight:800;cursor:pointer;border-radius:13px;border:1.5px dashed var(--c);background:transparent;color:var(--c);padding:10px;margin-top:auto;transition:.15s}
 .add:hover{background:var(--c);color:#fff}
-form{display:none;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+form{display:none;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px;position:relative}
 form.open{display:flex}
-input{font:inherit;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--input);color:var(--text);width:100%}
-input:focus{outline:2px solid var(--c);outline-offset:0}
+input[type=text],input[type=time]{font:inherit;padding:9px 11px;border-radius:11px;border:1px solid var(--line);background:var(--input);color:var(--text);width:100%}
+input:focus{outline:2px solid var(--c)}
 .row{display:flex;gap:8px;align-items:flex-end}
-.row label{flex:1;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
-.btn{font:inherit;font-weight:700;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);padding:9px 14px}
+.row label{flex:1;font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.cats{display:flex;gap:6px;flex-wrap:wrap}
+.cats label{cursor:pointer}
+.cats input{position:absolute;opacity:0;pointer-events:none}
+.cats span{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;font-size:1.2rem;border:1.5px solid var(--line);background:var(--input);transition:.15s}
+.cats input:checked+span{border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,transparent);transform:scale(1.08)}
+.btn{font:inherit;font-weight:800;cursor:pointer;border-radius:11px;border:1px solid var(--line);background:transparent;color:var(--text);padding:9px 14px}
 .btn.main{background:var(--c);color:#fff;border-color:var(--c);flex:1}
-.hint{text-align:center;color:var(--muted);font-size:.85rem;margin-top:22px}
+.hint{text-align:center;color:var(--muted);font-size:.85rem;margin-top:24px}
+@media (max-width:520px){.hero{grid-template-columns:1fr}.clock,.clock small{text-align:right}}
 </style>
 </head>
 <body>
 <main>
-<header>
-<div><h1>📅 مواعيدي</h1><div class="sub" id="sub"></div></div>
-<button class="lock" id="lock" type="button"></button>
-</header>
+<section class="hero glass">
+<div><h1 id="greet"></h1><div style="color:var(--muted);font-weight:600" id="sub"></div></div>
+<div class="clock"><span id="time"></span><small id="date"></small></div>
+<div class="next" id="next"></div>
+<div class="bar"><i id="prog"></i></div>
+</section>
+<div class="tools"><div class="stats" id="stats"></div><button class="lock" id="lock" type="button"></button></div>
 <div class="grid" id="grid"></div>
 <p class="hint" id="hint"></p>
 </main>
 <script>
 const DAYS=["الحد","الاتنين","التلات","الأربع","الخميس","الجمعة","السبت"];
-const COLORS=["#0f9d8a","#3b82f6","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444"];
+const COLORS=["#6366f1","#0ea5e9","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444"];
+const CATS=[["📌","عام"],["💼","شغل"],["📚","دراسة"],["🏋️","رياضة"],["🎉","خروجة"],["🍽️","أكل"],["🕌","صلاة"],["🤲","دعاء"]];
 let data={};
 try{data=JSON.parse(localStorage.getItem("schedule-v1")||"{}")||{}}catch(e){data={}}
 let openDay=null,editId=null,unlocked=false;
-const today=new Date().getDay();
 function save(){try{localStorage.setItem("schedule-v1",JSON.stringify(data))}catch(e){}}
+const mins=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
 function fmt(t){const[h,m]=t.split(":").map(Number);return (h%12||12)+":"+String(m).padStart(2,"0")+" "+(h>=12?"م":"ص")}
+function dur(a,b){let d=mins(b)-mins(a);if(d<0)d+=1440;const h=Math.floor(d/60),m=d%60;return (h?h+" ساعة":"")+(h&&m?" و":"")+(m?m+" دقيقة":"")}
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function dayList(i){return (data[i]||[]).slice().sort((a,b)=>a.from.localeCompare(b.from))}
+function nowMin(){const n=new Date();return n.getHours()*60+n.getMinutes()}
+function isLive(e){const n=nowMin(),a=mins(e.from),b=mins(e.to);return b>a?(n>=a&&n<b):(n>=a||n<b)}
+function overlaps(list){const s=new Set();for(let i=0;i<list.length;i++)for(let j=i+1;j<list.length;j++){if(mins(list[j].from)<mins(list[i].to)&&mins(list[i].from)<mins(list[j].to)){s.add(list[i].id);s.add(list[j].id)}}return s}
 function render(){
+const now=new Date(),today=now.getDay();
 const lk=document.getElementById("lock");
-lk.className="lock"+(unlocked?" on":"");
-lk.innerHTML=unlocked?"🔓 التعديل مفتوح":"🔒 مقفول";
-document.getElementById("sub").textContent="النهاردة "+DAYS[today];
-document.getElementById("hint").textContent=unlocked?"دوس على القفل تاني عشان تقفل التعديل والحذف.":"دوس على القفل لو عايز تضيف أو تعدّل أو تحذف معاد.";
+lk.className="lock"+(unlocked?" on":"");lk.innerHTML=unlocked?"🔓 التعديل مفتوح":"🔒 مقفول";
+document.getElementById("hint").textContent=unlocked?"دوس على القفل تاني عشان تقفل الإضافة والتعديل والحذف.":"دوس على القفل لو عايز تضيف أو تعدّل أو تحذف معاد.";
+let total=0,mn=0;
+for(let i=0;i<7;i++)dayList(i).forEach(e=>{total++;let d=mins(e.to)-mins(e.from);if(d<0)d+=1440;mn+=d});
+document.getElementById("stats").innerHTML='<span class="stat glass">📋 '+total+' معاد</span><span class="stat glass">⏱️ '+(Math.round(mn/6)/10)+' ساعة في الأسبوع</span>';
 const g=document.getElementById("grid");g.innerHTML="";
 DAYS.forEach((name,i)=>{
-const list=(data[i]||[]).slice().sort((a,b)=>a.from.localeCompare(b.from));
-const d=document.createElement("section");d.className="day"+(i===today?" today":"");d.style.setProperty("--c",COLORS[i]);
-let h='<div class="dh"><h2>'+name+'</h2>'+(i===today?'<span class="badge">النهاردة</span>':'')+'</div>';
-if(!list.length)h+='<div class="empty">مفيش مواعيد</div>';
-list.forEach(e=>{h+='<div class="ev"><div class="t"><b>'+esc(e.title)+'</b><small>من '+fmt(e.from)+' إلى '+fmt(e.to)+'</small></div>'+(unlocked?'<button class="ic" data-a="edit" data-d="'+i+'" data-id="'+e.id+'" title="تعديل">✏️</button><button class="ic del" data-a="del" data-d="'+i+'" data-id="'+e.id+'" title="حذف">🗑️</button>':'')+'</div>'});
-const isOpen=openDay===i;
+const list=dayList(i),ov=overlaps(list);
+const d=document.createElement("section");d.className="day glass"+(i===today?" today":"");d.style.setProperty("--c",COLORS[i]);
+let h='<div class="dh"><h2>'+name+'</h2>'+(i===today?'<span>النهاردة</span>':'')+'</div>';
+if(!list.length)h+='<div class="empty">يوم فاضي 🌿</div>';
+list.forEach((e,k)=>{
+const live=i===today&&isLive(e),w=ov.has(e.id);
+h+='<div class="ev'+(live?" live":"")+(w?" warn":"")+'" style="animation-delay:'+k*50+'ms"><div class="cat">'+(e.cat||"📌")+'</div><div class="t"><b>'+esc(e.title)+(live?'<span class="tag l">دلوقتي</span>':'')+(w?'<span class="tag w">تعارض</span>':'')+'</b><small>'+fmt(e.from)+' ← '+fmt(e.to)+' · '+dur(e.from,e.to)+'</small></div>'+(unlocked?'<button class="ic" data-a="edit" data-d="'+i+'" data-id="'+e.id+'" title="تعديل">✏️</button><button class="ic" data-a="del" data-d="'+i+'" data-id="'+e.id+'" title="حذف">🗑️</button>':'')+'</div>'});
+const isOpen=unlocked&&openDay===i;
 const cur=isOpen&&editId?(data[i]||[]).find(x=>x.id===editId):null;
-h+='<form class="'+(isOpen?"open":"")+'" data-d="'+i+'"><input name="title" placeholder="عندي إيه؟" required value="'+(cur?esc(cur.title):"")+'"><div class="row"><label>من<input type="time" name="from" required value="'+(cur?cur.from:"")+'"></label><label>إلى<input type="time" name="to" required value="'+(cur?cur.to:"")+'"></label></div><div class="row"><button class="btn main" type="submit">'+(cur?"حفظ التعديل":"حفظ")+'</button><button class="btn" type="button" data-a="cancel">إلغاء</button></div></form>';
-if(unlocked&&!isOpen)h+='<button class="add" data-a="add" data-d="'+i+'">+ إضافة معاد</button>';
+if(isOpen){
+h+='<form class="open" data-d="'+i+'"><input type="text" name="title" placeholder="عندي إيه؟" required value="'+(cur?esc(cur.title):"")+'"><div class="cats">'+CATS.map(c=>'<label title="'+c[1]+'"><input type="radio" name="cat" value="'+c[0]+'"'+((cur?cur.cat||"📌":"📌")===c[0]?" checked":"")+'><span>'+c[0]+'</span></label>').join("")+'</div><div class="row"><label>من<input type="time" name="from" required value="'+(cur?cur.from:"")+'"></label><label>إلى<input type="time" name="to" required value="'+(cur?cur.to:"")+'"></label></div><div class="row"><button class="btn main" type="submit">'+(cur?"حفظ التعديل":"حفظ")+'</button><button class="btn" type="button" data-a="cancel">إلغاء</button></div></form>'}
+else if(unlocked)h+='<button class="add" data-a="add" data-d="'+i+'">+ إضافة معاد</button>';
 d.innerHTML=h;g.appendChild(d)});
-}
+tick()}
+function tick(){
+const now=new Date(),today=now.getDay(),n=nowMin(),hr=now.getHours();
+document.getElementById("greet").innerHTML=(hr<5?"سهران؟ 🌙":hr<12?"صباح الخير ☀️":hr<17?"نهارك سعيد 🌤️":hr<21?"مساء الخير 🌇":"مساء النور 🌙")+" <span>يا بطل</span>";
+document.getElementById("sub").textContent="النهاردة "+DAYS[today];
+document.getElementById("time").textContent=fmt(String(hr).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0"));
+document.getElementById("date").textContent=now.toLocaleDateString("ar-EG",{day:"numeric",month:"long",year:"numeric"});
+const list=dayList(today),live=list.find(isLive),nxt=list.find(e=>mins(e.from)>n);
+const nb=document.getElementById("next");
+nb.innerHTML=live?'<span class="pulse"></span>دلوقتي: '+live.cat+" "+esc(live.title)+" (لحد "+fmt(live.to)+")":nxt?"⏭️ الجاي: "+(nxt.cat||"📌")+" "+esc(nxt.title)+" الساعة "+fmt(nxt.from):list.length?"✅ خلّصت مواعيد النهاردة":"🌿 مفيش مواعيد النهاردة، استمتع بيومك";
+if(live&&!live.cat)nb.innerHTML=nb.innerHTML.replace("undefined","📌");
+const done=list.length?list.filter(e=>mins(e.to)<=n&&!isLive(e)).length/list.length:0;
+document.getElementById("prog").style.width=Math.round(done*100)+"%"}
 document.getElementById("lock").addEventListener("click",()=>{unlocked=!unlocked;if(!unlocked){openDay=null;editId=null}render()});
 document.getElementById("grid").addEventListener("click",ev=>{
 const b=ev.target.closest("button");if(!b)return;
@@ -103,12 +147,11 @@ else if(a==="del"){if(confirm("متأكد إنك عايز تحذف المعاد 
 });
 document.getElementById("grid").addEventListener("submit",ev=>{
 ev.preventDefault();const f=ev.target,d=f.dataset.d;
-const item={id:editId||String(Date.now()),title:f.title.value.trim(),from:f.from.value,to:f.to.value};
+const item={id:editId||String(Date.now()),title:f.title.value.trim(),from:f.from.value,to:f.to.value,cat:f.cat.value};
 if(!item.title)return;
 data[d]=(data[d]||[]).filter(x=>x.id!==item.id);data[d].push(item);
-save();openDay=null;editId=null;render();
-});
-render();
+save();openDay=null;editId=null;render()});
+render();setInterval(()=>{const a=document.activeElement;if(!(a&&a.closest&&a.closest("form")))render();else tick()},30000);
 </script>
 </body>
 </html>
