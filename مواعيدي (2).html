@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مواعيدي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#eef6f5;--bg2:#f7f1ea;--blob1:rgba(45,160,150,.28);--blob2:rgba(240,170,110,.30);--blob3:rgba(120,140,230,.22);
+--card:rgba(255,255,255,.72);--card-b:rgba(255,255,255,.9);--text:#16302e;--muted:#5d7270;--line:rgba(22,48,46,.12);--input:rgba(255,255,255,.9);
+--accent:#0f766e;--accent-t:#fff;--danger:#c0392b;--shadow:0 10px 30px rgba(20,60,55,.10);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#0d1719;--bg2:#15131c;--blob1:rgba(30,160,150,.22);--blob2:rgba(230,140,90,.14);--blob3:rgba(100,110,240,.20);--card:rgba(30,40,44,.66);--card-b:rgba(255,255,255,.08);--text:#e6f0ee;--muted:#9fb3b0;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#2dd4bf;--accent-t:#04201c;--danger:#ff7b6b;--shadow:0 10px 30px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg1:#0d1719;--bg2:#15131c;--blob1:rgba(30,160,150,.22);--blob2:rgba(230,140,90,.14);--blob3:rgba(100,110,240,.20);--card:rgba(30,40,44,.66);--card-b:rgba(255,255,255,.08);--text:#e6f0ee;--muted:#9fb3b0;--line:rgba(255,255,255,.10);--input:rgba(255,255,255,.07);--accent:#2dd4bf;--accent-t:#04201c;--danger:#ff7b6b;--shadow:0 10px 30px rgba(0,0,0,.35)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--text);font-family:"Cairo","Segoe UI",Tahoma,Arial,sans-serif;line-height:1.55;
+background:radial-gradient(600px 400px at 90% 0%,var(--blob1),transparent 70%),radial-gradient(700px 500px at 0% 40%,var(--blob2),transparent 70%),radial-gradient(600px 500px at 80% 100%,var(--blob3),transparent 70%),linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed}
+main{max-width:1100px;margin:0 auto;padding:22px 16px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+h1{margin:0;font-size:1.9rem;font-weight:800;letter-spacing:-.3px}
+.sub{color:var(--muted);font-size:.95rem;margin-top:2px}
+.lock{display:flex;align-items:center;gap:8px;font:inherit;font-weight:700;cursor:pointer;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);box-shadow:var(--shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.2s}
+.lock.on{background:var(--accent);color:var(--accent-t);border-color:var(--accent)}
+.lock:hover{transform:translateY(-1px)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.day{--c:var(--accent);position:relative;background:var(--card);border:1px solid var(--card-b);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;transition:transform .2s}
+.day::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--c)}
+.day:hover{transform:translateY(-2px)}
+.day.today{outline:2px solid var(--c);outline-offset:-2px}
+.dh{display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.dh h2{margin:0;font-size:1.25rem;font-weight:800}
+.badge{font-size:.72rem;font-weight:700;background:var(--c);color:#fff;padding:2px 10px;border-radius:999px}
+.ev{display:flex;align-items:center;gap:8px;background:var(--input);border:1px solid var(--line);border-inline-start:4px solid var(--c);border-radius:12px;padding:9px 11px}
+.ev .t{flex:1;min-width:0}
+.ev b{display:block;font-weight:700;overflow-wrap:anywhere}
+.ev small{color:var(--muted);font-size:.85rem}
+.ic{font:inherit;cursor:pointer;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--text);width:34px;height:34px;display:grid;place-items:center;transition:.15s}
+.ic:hover{background:var(--line)}
+.ic.del{color:var(--danger)}
+.empty{color:var(--muted);font-size:.92rem;padding:6px 2px}
+.add{font:inherit;font-weight:700;cursor:pointer;border-radius:12px;border:1.5px dashed var(--c);background:transparent;color:var(--c);padding:9px;transition:.15s;margin-top:auto}
+.add:hover{background:var(--c);color:#fff}
+form{display:none;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px}
+form.open{display:flex}
+input{font:inherit;padding:9px 11px;border-radius:10px;border:1px solid var(--line);background:var(--input);color:var(--text);width:100%}
+input:focus{outline:2px solid var(--c);outline-offset:0}
+.row{display:flex;gap:8px;align-items:flex-end}
+.row label{flex:1;font-size:.82rem;color:var(--muted);display:flex;flex-direction:column;gap:3px}
+.btn{font:inherit;font-weight:700;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--text);padding:9px 14px}
+.btn.main{background:var(--c);color:#fff;border-color:var(--c);flex:1}
+.hint{text-align:center;color:var(--muted);font-size:.85rem;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div><h1>📅 مواعيدي</h1><div class="sub" id="sub"></div></div>
+<button class="lock" id="lock" type="button"></button>
+</header>
+<div class="grid" id="grid"></div>
+<p class="hint" id="hint"></p>
+</main>
+<script>
+const DAYS=["الحد","الاتنين","التلات","الأربع","الخميس","الجمعة","السبت"];
+const COLORS=["#0f9d8a","#3b82f6","#8b5cf6","#ec4899","#f59e0b","#10b981","#ef4444"];
+let data={};
+try{data=JSON.parse(localStorage.getItem("schedule-v1")||"{}")||{}}catch(e){data={}}
+let openDay=null,editId=null,unlocked=false;
+const today=new Date().getDay();
+function save(){try{localStorage.setItem("schedule-v1",JSON.stringify(data))}catch(e){}}
+function fmt(t){const[h,m]=t.split(":").map(Number);return (h%12||12)+":"+String(m).padStart(2,"0")+" "+(h>=12?"م":"ص")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function render(){
+const lk=document.getElementById("lock");
+lk.className="lock"+(unlocked?" on":"");
+lk.innerHTML=unlocked?"🔓 التعديل مفتوح":"🔒 مقفول";
+document.getElementById("sub").textContent="النهاردة "+DAYS[today];
+document.getElementById("hint").textContent=unlocked?"دوس على القفل تاني عشان تقفل التعديل والحذف.":"دوس على القفل لو عايز تضيف أو تعدّل أو تحذف معاد.";
+const g=document.getElementById("grid");g.innerHTML="";
+DAYS.forEach((name,i)=>{
+const list=(data[i]||[]).slice().sort((a,b)=>a.from.localeCompare(b.from));
+const d=document.createElement("section");d.className="day"+(i===today?" today":"");d.style.setProperty("--c",COLORS[i]);
+let h='<div class="dh"><h2>'+name+'</h2>'+(i===today?'<span class="badge">النهاردة</span>':'')+'</div>';
+if(!list.length)h+='<div class="empty">مفيش مواعيد</div>';
+list.forEach(e=>{h+='<div class="ev"><div class="t"><b>'+esc(e.title)+'</b><small>من '+fmt(e.from)+' إلى '+fmt(e.to)+'</small></div>'+(unlocked?'<button class="ic" data-a="edit" data-d="'+i+'" data-id="'+e.id+'" title="تعديل">✏️</button><button class="ic del" data-a="del" data-d="'+i+'" data-id="'+e.id+'" title="حذف">🗑️</button>':'')+'</div>'});
+const isOpen=openDay===i;
+const cur=isOpen&&editId?(data[i]||[]).find(x=>x.id===editId):null;
+h+='<form class="'+(isOpen?"open":"")+'" data-d="'+i+'"><input name="title" placeholder="عندي إيه؟" required value="'+(cur?esc(cur.title):"")+'"><div class="row"><label>من<input type="time" name="from" required value="'+(cur?cur.from:"")+'"></label><label>إلى<input type="time" name="to" required value="'+(cur?cur.to:"")+'"></label></div><div class="row"><button class="btn main" type="submit">'+(cur?"حفظ التعديل":"حفظ")+'</button><button class="btn" type="button" data-a="cancel">إلغاء</button></div></form>';
+if(unlocked&&!isOpen)h+='<button class="add" data-a="add" data-d="'+i+'">+ إضافة معاد</button>';
+d.innerHTML=h;g.appendChild(d)});
+}
+document.getElementById("lock").addEventListener("click",()=>{unlocked=!unlocked;if(!unlocked){openDay=null;editId=null}render()});
+document.getElementById("grid").addEventListener("click",ev=>{
+const b=ev.target.closest("button");if(!b)return;
+const a=b.dataset.a,d=b.dataset.d,id=b.dataset.id;
+if(a==="add"){openDay=+d;editId=null;render();const f=document.querySelector("form.open input");if(f)f.focus()}
+else if(a==="edit"){openDay=+d;editId=id;render()}
+else if(a==="cancel"){openDay=null;editId=null;render()}
+else if(a==="del"){if(confirm("متأكد إنك عايز تحذف المعاد ده؟")){data[d]=(data[d]||[]).filter(x=>x.id!==id);save();render()}}
+});
+document.getElementById("grid").addEventListener("submit",ev=>{
+ev.preventDefault();const f=ev.target,d=f.dataset.d;
+const item={id:editId||String(Date.now()),title:f.title.value.trim(),from:f.from.value,to:f.to.value};
+if(!item.title)return;
+data[d]=(data[d]||[]).filter(x=>x.id!==item.id);data[d].push(item);
+save();openDay=null;editId=null;render();
+});
+render();
+</script>
+</body>
+</html>
